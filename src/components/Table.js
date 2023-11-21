@@ -23,6 +23,7 @@ function Table() {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [searchTerm, setSearchTerm] = useState('');
   const [hiddenColumns, setHiddenColumns] = useState([]);
+  const [columnFilters, setColumnFilters] = useState({});
 
   const handleSort = (key) => {
     let direction = 'asc';
@@ -80,6 +81,16 @@ function Table() {
     handleHideColumn('email');
   };
 
+  const handleFilter = (column, value) => {
+    setColumnFilters({ ...columnFilters, [column]: value });
+
+    const filteredData = initialData.filter((item) => {
+      return item[column].toString().toLowerCase().includes(value.toLowerCase());
+    });
+
+    setData(filteredData);
+  };
+
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -113,9 +124,21 @@ function Table() {
             </th>
             <th className="thStyle" onClick={() => handleSort('name')}>
               Name {sortConfig.key === 'name' && <span>{sortConfig.direction === 'asc' ? '▲' : '▼'}</span>}
+              <input
+                type="text"
+                placeholder="Filter..."
+                value={columnFilters.name || ''}
+                onChange={(e) => handleFilter('name', e.target.value)}
+              />
             </th>
             <th className="thStyle" onClick={() => handleSort('email')}>
               Email {sortConfig.key === 'email' && <span>{sortConfig.direction === 'asc' ? '▲' : '▼'}</span>}
+              <input
+                type="text"
+                placeholder="Filter..."
+                value={columnFilters.email || ''}
+                onChange={(e) => handleFilter('email', e.target.value)}
+              />
             </th>
             <th className="thStyle">
               <button onClick={hideAllNames}>Hide All Names</button>
