@@ -1,0 +1,19 @@
+.tableStyle{
+    border-collapse: collapse;
+    width: 100%;
+}
+.thStyle  {
+    border: 1px solid #dddddd;
+    padding: 8px;
+};
+.tdStyle  {
+    border: 1px solid #dddddd;
+    padding: 8px;
+};
+tbody {
+    border: 1px solid #dddddd;
+  }
+  .tbodyStyle {
+    border: 1px solid #dddddd;
+  }
+  
